@@ -1,0 +1,272 @@
+/* ---------- Cores e tipografia (mude aqui para trocar a identidade) ---------- */
+:root {
+  --fundo: #E9EEF1;
+  --papel: #FFFFFF;
+  --tinta: #17232E;
+  --suave: #5B6975;
+  --linha: #C9D2D8;
+  --petroleo: #0E5A67;
+  --petroleo-claro: #D5E8EB;
+  --sobre-petroleo: #FFFFFF;
+  --mostarda: #E8A92E;
+  --erro: #A5352B;
+  color-scheme: light dark;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --fundo: #0F1A20;
+    --papel: #18262E;
+    --tinta: #E6EDF1;
+    --suave: #9AA9B3;
+    --linha: #2E4150;
+    --petroleo: #3FA3B3;
+    --petroleo-claro: #16363D;
+    --sobre-petroleo: #0F1A20;
+    --mostarda: #F0B84A;
+    --erro: #F08A7E;
+  }
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--fundo);
+  color: var(--tinta);
+  font-family: "Public Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.pagina {
+  max-width: 40rem;
+  min-height: 100vh;
+  margin: 0 auto;
+  padding: 3rem 1.25rem 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+/* ---------- Cabeçalho ---------- */
+.topo h1 {
+  margin: 0 0 0.5rem;
+  font-size: clamp(1.75rem, 5vw, 2.5rem);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  font-weight: 700;
+}
+
+.status { margin: 0; color: var(--suave); font-size: 0.9375rem; }
+.status.erro { color: var(--erro); }
+
+/* ---------- Campo de busca ---------- */
+.rotulo { display: block; margin-bottom: 0.5rem; font-weight: 600; }
+
+.campo-linha { display: flex; gap: 0.5rem; }
+
+#campo-busca {
+  flex: 1;
+  min-width: 0;
+  padding: 0.875rem 1rem;
+  font: inherit;
+  font-size: 1.25rem;
+  color: var(--tinta);
+  background: var(--papel);
+  border: 2px solid var(--tinta);
+  border-radius: 10px;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+#campo-busca:focus { outline: 3px solid var(--mostarda); outline-offset: 2px; }
+
+button { font: inherit; cursor: pointer; }
+button:focus-visible { outline: 3px solid var(--mostarda); outline-offset: 2px; }
+
+.busca button[type="submit"] {
+  padding: 0 1.25rem;
+  border: 0;
+  border-radius: 10px;
+  background: var(--petroleo);
+  color: var(--sobre-petroleo);
+  font-weight: 600;
+}
+
+/* ---------- Mensagens e lista de resultados ---------- */
+.mensagem { margin: 0; color: var(--suave); }
+
+.lista {
+  list-style: none;
+  margin: 0.75rem 0 0;
+  padding: 0;
+  border-top: 1px solid var(--linha);
+}
+
+.lista button {
+  display: block;
+  width: 100%;
+  padding: 0.75rem 0.5rem;
+  text-align: left;
+  color: inherit;
+  background: none;
+  border: 0;
+  border-bottom: 1px solid var(--linha);
+}
+
+.lista button:hover { background: var(--petroleo-claro); }
+.lista strong { display: block; font-weight: 600; }
+.lista span { color: var(--suave); font-size: 0.875rem; }
+
+.voltar {
+  display: block;
+  margin: 0 auto;
+  padding: 0.25rem 0;
+  color: var(--petroleo);
+  background: none;
+  border: 0;
+  font-weight: 600;
+  text-decoration: underline;
+}
+
+/* ---------- Crachá (resultado único), em modo paisagem ---------- */
+.cracha {
+  display: grid;
+  grid-template-columns: auto 1fr; /* coluna da foto + coluna dos dados */
+  width: 100%;
+  margin: 1rem 0 0;
+  overflow: hidden;
+  background: var(--papel);
+  border: 1px solid var(--linha);
+  border-radius: 18px;
+  transform-origin: 50% -2rem;
+  animation: balanco 0.7s ease-out;
+}
+
+/* faixa colorida da esquerda, onde fica a foto */
+.cracha-lateral {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2.5rem 1.25rem 1.25rem;
+  background: var(--petroleo);
+}
+
+/* o "furo" do cordão do crachá */
+.cracha-lateral::before {
+  content: "";
+  position: absolute;
+  top: 0.875rem;
+  left: 50%;
+  width: 3.5rem;
+  height: 0.625rem;
+  margin-left: -1.75rem;
+  border-radius: 999px;
+  background: var(--fundo);
+}
+
+/* TAMANHO DA FOTO: mude a largura aqui; a altura segue a proporção 4:5 */
+.cracha-foto {
+  position: relative;
+  width: 10rem;
+  aspect-ratio: 4 / 5;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  font-size: 3rem;
+  font-weight: 700;
+  color: var(--petroleo);
+  background: var(--petroleo-claro);
+  border: 4px solid var(--papel);
+  border-radius: 12px;
+}
+
+/* a foto cobre as iniciais; se não carregar, as iniciais reaparecem */
+.cracha-foto img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.cracha-corpo {
+  min-width: 0;
+  align-self: center;
+  padding: 1.5rem 1.75rem;
+}
+
+.cracha-nome { margin: 0 0 0.5rem; font-size: 1.5rem; line-height: 1.2; }
+
+.cracha-codigo {
+  display: inline-block;
+  padding: 0.125rem 0.625rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.08em;
+  color: #17232E;
+  background: var(--mostarda);
+  border-radius: 6px;
+}
+
+.cracha-dados {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.375rem 1rem;
+  margin: 1.25rem 0 0;
+  padding-top: 1rem;
+  border-top: 1px solid var(--linha);
+}
+
+.cracha-dados dt { color: var(--suave); font-size: 0.875rem; }
+.cracha-dados dd { margin: 0; overflow-wrap: anywhere; }
+
+/* balanço menor: num cartão largo, girar muito parece exagerado */
+@keyframes balanco {
+  0%   { transform: rotate(-2deg);   opacity: 0; }
+  40%  { transform: rotate(1deg);    opacity: 1; }
+  70%  { transform: rotate(-0.5deg); }
+  100% { transform: rotate(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cracha { animation: none; }
+}
+
+/* celular: continua paisagem, com foto e textos menores */
+@media (max-width: 480px) {
+  .cracha-lateral { padding: 2rem 0.75rem 0.75rem; }
+  .cracha-foto { width: 6.5rem; font-size: 2rem; }
+  .cracha-corpo { padding: 1rem; }
+  .cracha-nome { font-size: 1.125rem; }
+  .cracha-dados { grid-template-columns: 1fr; gap: 0; }
+  .cracha-dados dd { margin-bottom: 0.5rem; }
+}
+
+/* ---------- Rodapé ---------- */
+.rodape {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  font-size: 0.875rem;
+  color: var(--suave);
+}
+
+.carregar {
+  align-self: flex-start;
+  color: var(--petroleo);
+  font-weight: 600;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.carregar input { position: absolute; width: 1px; height: 1px; opacity: 0; }
+.carregar:focus-within { outline: 3px solid var(--mostarda); outline-offset: 2px; }
+
+@media (max-width: 380px) {
+  .campo-linha { flex-direction: column; }
+  .busca button[type="submit"] { padding: 0.75rem; }
+}

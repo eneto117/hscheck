@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Consulta de colaboradores</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <main class="pagina">
+    <header class="topo">
+      <h1>Consulta de colaboradores</h1>
+      <p class="status" id="status" role="status">Carregando a base…</p>
+    </header>
+
+    <form class="busca" id="form-busca" autocomplete="off" role="search">
+      <label for="campo-busca" class="rotulo">Código do crachá ou nome completo</label>
+      <div class="campo-linha">
+        <input id="campo-busca" type="search" placeholder="Ex.: 104233 ou Maria Souza Lima" autofocus>
+        <button type="submit">Buscar</button>
+      </div>
+    </form>
+
+    <section id="resultado" class="resultado" aria-live="polite"></section>
+
+    <footer class="rodape">
+      <label class="carregar">
+        <input type="file" id="arquivo" accept=".csv,text/csv">
+        Carregar outra planilha (.csv)
+      </label>
+      <span>A planilha é lida no seu navegador e não é enviada a nenhum servidor.</span>
+    </footer>
+  </main>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
